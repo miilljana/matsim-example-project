@@ -70,7 +70,7 @@ public class RunExperiment {
 
         //read links nto hash map
         String path_to_links = Paths.get("scenarios","bilbao","input","links.json").toString();
-        HashMap<String, ArrayList> link = new HashMap<>();
+        HashMap<String, ArrayList<String>> link = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
             Object obj = parser.parse(new FileReader(path_to_links));
@@ -87,7 +87,7 @@ public class RunExperiment {
 
 
         ArrayList<String> city_parts = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9","12","13","14","15","123","134","145","125","126","139","148","157","1236","1239","1349","1348","1458","1457","1257","1256","12369","13498","14578","12567"));
-       HashMap<String, ArrayList> city_parts_comb = new HashMap<>();
+       HashMap<String, ArrayList<String>> city_parts_comb = new HashMap<>();
        for (String id:city_parts){
            //split the id
            ArrayList<String> l = new ArrayList<>();
