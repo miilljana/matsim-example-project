@@ -18,10 +18,7 @@ import org.matsim.core.scenario.ScenarioUtils;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 public class RunExperiment {
     public static void createNetworkChangeEventClose(int start_time, ArrayList<String> links, Scenario sc) {
@@ -71,7 +68,7 @@ public class RunExperiment {
 
         //read links nto hash map
         String path_to_links = Paths.get("scenarios","bilbao","input","links.json").toString();
-        HashMap<String, ArrayList<String>> link = new HashMap<String,ArrayList<String>>();
+        HashMap<String, Object> link = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
             Object obj = parser.parse(new FileReader(path_to_links));
@@ -81,7 +78,7 @@ public class RunExperiment {
 //            Iterator<JSONObject> iterator =  data.iterator();
             while (iterator.hasNext()) {
                 JSONObject o = (JSONObject) iterator.next();
-                link.put(String.valueOf( o.get("region")), (ArrayList<String>) o.get("links"));
+                link.put(String.valueOf( o.get("region")),  o.get("links"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,7 +93,7 @@ public class RunExperiment {
            char[] regions;
            regions = id.toCharArray();
            for (int i =0;i<regions.length;i++){
-               l.addAll(link.get(String.valueOf(regions[i])));
+               l.addAll((Collection<? extends String>) link.get(String.valueOf(regions[i])));
            }
            city_parts_comb.put(id,l);
        }
