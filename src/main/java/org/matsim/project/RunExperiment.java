@@ -77,9 +77,10 @@ public class RunExperiment {
             Object obj = parser.parse(new FileReader(path_to_links));
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray data = (JSONArray) jsonObject.get("data");
-            Iterator<JSONObject> iterator = (Iterator<JSONObject>) data.iterator();
+            Iterator iterator = data.iterator();
+//            Iterator<JSONObject> iterator =  data.iterator();
             while (iterator.hasNext()) {
-                JSONObject o = iterator.next();
+                JSONObject o = (JSONObject) iterator.next();
                 link.put(String.valueOf( o.get("region")), (ArrayList<String>) o.get("links"));
             }
         } catch (Exception e) {
