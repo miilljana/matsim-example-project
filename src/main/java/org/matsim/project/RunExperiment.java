@@ -71,7 +71,7 @@ public class RunExperiment {
 
         //read links nto hash map
         String path_to_links = Paths.get("scenarios","bilbao","input","links.json").toString();
-        HashMap<String, ArrayList<String>> link = new HashMap<>();
+        HashMap<String, ArrayList<String>> link = new HashMap<String,ArrayList<String>>();
         JSONParser parser = new JSONParser();
         try {
             Object obj = parser.parse(new FileReader(path_to_links));
