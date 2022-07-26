@@ -14,14 +14,12 @@ import org.matsim.core.controler.OutputDirectoryHierarchy;
 import org.matsim.core.network.NetworkChangeEvent;
 import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.scenario.ScenarioUtils;
+import scala.util.parsing.combinator.testing.Str;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 public class RunExperiment {
     public static void createNetworkChangeEventClose(int start_time, ArrayList<String> links, Scenario sc) {
@@ -81,7 +79,10 @@ public class RunExperiment {
 //            Iterator<JSONObject> iterator =  data.iterator();
             while (iterator.hasNext()) {
                 JSONObject o = (JSONObject) iterator.next();
-                link.put(String.valueOf( o.get("region")), (ArrayList<String>) o.get("links"));
+                Object object = o.get("links");
+                ArrayList<String> objects1 = new ArrayList<String>();
+                objects1.add((String) object);
+                link.put(String.valueOf( o.get("region")), objects1);
             }
         } catch (Exception e) {
             e.printStackTrace();
