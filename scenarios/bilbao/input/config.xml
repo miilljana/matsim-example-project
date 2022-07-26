@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config SYSTEM "./dtd/config_v2.dtd">
+
+<config>
+
+<!--&lt;!&ndash;	Calibration configuration&ndash;&gt;-->
+<!--	<module name="cadytsCar" >-->
+<!--		&lt;!&ndash; Comma-separated list of items with counts  to be calibrated. &ndash;&gt;-->
+<!--		<param name="calibratedLinks" value="46103, 23807, 18177, 47894, 12371, 3024, 28635, 30882, 1436, 34864, 33874, 22692, 49233, 47770, 1519, 5075, 6683, 17214, 43820, 7375, 7235, 7058, 47223, 18167, 27535, 26963, 3472, 35063, 22941, 45705, 21975, 47826, 1667, 25395, 25076, 25397, 13412, 48395, 12720, 37703" />-->
+<!--		&lt;!&ndash; The last second of the day to be used for calibration.  hh:mm:ss format &ndash;&gt;-->
+<!--		<param name="endTime" value="86399" />-->
+<!--		<param name="freezeIteration" value="2147483647" />-->
+<!--		<param name="minFlowStddevVehH" value="25.0" />-->
+<!--		<param name="preparatoryIterations" value="1" />-->
+<!--		<param name="regressionInertia" value="0.95" />-->
+<!--		&lt;!&ndash; The first second of the day to be used for calibration.  hh:mm:ss format &ndash;&gt;-->
+<!--		<param name="startTime" value="0" />-->
+<!--		&lt;!&ndash; Length of time bin for which counts are aggregated.  IN SECONDS!!!!  Default is 3600. &ndash;&gt;-->
+<!--		<param name="timeBinSize" value="3600" />-->
+<!--		<param name="useBruteForce" value="false" />-->
+<!--		<param name="varianceScale" value="1.0" />-->
+<!--		<param name="writeAnalysisFile" value="true" />-->
+<!--	</module>-->
+
+<!--&lt;!&ndash;	Counts data&ndash;&gt;-->
+<!--	<module name="counts" >-->
+<!--		&lt;!&ndash; Transport modes that will be respected for the counts comparison. 'car' is default, which includes also bussed from the pt simulation module. Use this parameter in combination with 'filterModes' = true! &ndash;&gt;-->
+<!--		<param name="analyzedModes" value="car" />-->
+<!--		&lt;!&ndash; Specifies over how many iterations the link volumes should be averaged that are used for the counts comparison. Use 1 or 0 to only use the link volumes of a single iteration. This values cannot be larger than the value specified for writeCountsInterval &ndash;&gt;-->
+<!--		<param name="averageCountsOverIterations" value="5" />-->
+<!--		&lt;!&ndash; factor by which to re-scale the simulated values.  necessary when simulation runs with something different from 100%.  needs to be adapted manually &ndash;&gt;-->
+<!--		<param name="countsScaleFactor" value="10.0" />-->
+<!--		&lt;!&ndash; distance to distanceFilterCenterNode to include counting stations. The unit of distance is the Euclidean distance implied by the coordinate system &ndash;&gt;-->
+<!--		<param name="distanceFilter" value="null" />-->
+<!--		&lt;!&ndash; node id for center node of distance filter &ndash;&gt;-->
+<!--		<param name="distanceFilterCenterNode" value="null" />-->
+<!--		&lt;!&ndash; If true, link counts from legs performed on modes not included in the 'analyzedModes' parameter are ignored. &ndash;&gt;-->
+<!--		<param name="filterModes" value="false" />-->
+<!--		&lt;!&ndash; The Coordinates Reference System in which the coordinates are expressed in the input file. At import, the coordinates will be converted to the coordinate system defined in "global", and willbe converted back at export. If not specified, no conversion happens. &ndash;&gt;-->
+<!--		<param name="inputCRS" value="null" />-->
+<!--		&lt;!&ndash; input file name to counts package &ndash;&gt;-->
+<!--		<param name="inputCountsFile" value="counts.xml" />-->
+<!--		&lt;!&ndash; possible values: `html', `kml', `txt', `all' &ndash;&gt;-->
+<!--		<param name="outputformat" value="txt" />-->
+<!--		&lt;!&ndash; Specifies how often the counts comparison should be calculated and written. &ndash;&gt;-->
+<!--		<param name="writeCountsInterval" value="5" />-->
+<!--	</module>-->
+	<module name="global">
+		<param name="coordinateSystem" value="EPSG:2062"/>
+	</module>
+
+	<module name="network">
+		<param name="inputCRS" value="EPSG:2062"/>
+<!--		<param name="inputNetworkFile" value="bilbao_closedMoyuaNetwork.xml" />-->
+		<param name="inputNetworkFile" value="bilbao_multimodalnetwork.xml" />
+		<param name= "timeVariantNetwork" value= "false" />
+<!--		<param name="inputChangeEventsFile" value="networkChangeEvents.xml"/>-->
+	</module>
+
+	<module name="plans">
+		<param name="inputPlansFile" value="travelDemandTest.xml" />
+	</module>
+
+	<module name="vehicles" >
+		<param name="vehiclesFile" value="vehicle1.xml" />
+	</module>
+
+	<module name="controler">
+		<param name="outputDirectory" value="" />
+		<param name="firstIteration" value="0" />
+		<param name="lastIteration" value="30" />
+		<param name="mobsim" value="qsim" />
+		<param name="routingAlgorithmType" value="AStarLandmarks" />
+		<param name="overwriteFiles" value="deleteDirectoryIfExists" />
+	</module>
+
+	<module name="qsim">
+		<param name="startTime" value="00:00:00" />
+		<param name="endTime" value="24:00:00" />
+		<param name="mainMode" value="car,bicycle" />
+		<param name="vehiclesSource" value="modeVehicleTypesFromVehiclesData" />
+		<!-- <param name="vehiclesSource" value="fromVehiclesData" /> -->
+		<param name="snapshotperiod"  value ="00:00:00"/>
+		<param name="trafficDynamics" value="queue"/>
+		<param name="vehicleBehavior" value="teleport"/>
+		<param name="numberOfThreads" value="4"/>
+		<param name="useLanes" value="false" />
+		<param name="linkDynamics" value="PassingQ"/>
+		<param name="trafficDynamics" value="kinematicWaves" />
+		<param name="stuckTime" value="30.0" />
+		<!--		storage capacity factor - to reduce the storage of the link and flow capacity factor - to increase the size of the vehicles are used to scale down the simulation-->
+		<!--		In this case we use 10% population -->
+<!--		<param name="storageCapacityFactor" value="0.3" /> &lt;!&ndash; storageCapacityFactor = ScaleFactor^alfa, alfa=0.75 &ndash;&gt;-->
+<!--		<param name="flowCapacityFactor" value="0.1" /> &lt;!&ndash; flowCapacityFactor = ScaleFactor&ndash;&gt;-->
+		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
+	</module>
+
+	<module name="transit" >
+		<param name="transitScheduleFile" value="bilbao_schedule.xml"/>
+		<param name="vehiclesFile" value="transit_vehicles.xml" />
+		<param name="useTransit" value="true" />
+		<param name="transitModes" value="pt,bus" />
+	</module>
+
+	<module name="transitRouter" >
+		<param name="additionalTransferTime" value="0.10" />
+<!--		<param name="directWalkFactor" value="1.0" />-->
+		<!-- step size to increase searchRadius if no stops are found -->
+		<param name="extensionRadius" value="1000.0" />
+		<!-- maximum beeline distance between stops that agents could transfer to by walking -->
+		<param name="maxBeelineWalkConnectionDistance" value="1500.0" />
+		<!-- the radius in which stop locations are searched, given a start or target coordinate -->
+		<param name="searchRadius" value="10000.0" />
+	</module>
+
+	<module name="planCalcScore">
+		<param name="PathSizeLogitBeta" value="1.0" />
+		<param name="learningRate" value="1.0" />
+		<param name="BrainExpBeta" value="2.0" />
+
+		<parameterset type="scoringParameters" >
+			<param name="earlyDeparture" value="-0.0" />
+			<param name="lateArrival" value="-6.0" />
+			<param name="marginalUtilityOfMoney" value="1.0" />
+			<param name="performing" value="2.0" />
+			<param name="subpopulation" value="null" />
+			<param name="utilityOfLineSwitch" value="-1.0" />
+			<param name="waiting" value="-0.0" />
+			<param name="waitingPt" value="-30.0" />
+
+		<parameterset type="activityParams" >
+				<param name="activityType" value="home" />
+				<param name="minimalDuration" value="00:15:00" />
+				<param name="typicalDuration" value="08:00:00" />
+		</parameterset>
+		<parameterset type="activityParams" >
+				<param name="activityType" value="work" />
+				<param name="minimalDuration" value="05:00:00" />
+				<param name="typicalDuration" value="08:00:00" />
+				<param name="openingTime" value="05:00:00" />
+				<param name="latestStartTime" value="13:00:00" />
+				<param name="closingTime" value="23:00:00" />
+		</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="delivery" />
+				<param name="minimalDuration" value="05:00:00" />
+				<param name="typicalDuration" value="08:00:00" />
+				<param name="openingTime" value="05:00:00" />
+				<param name="latestStartTime" value="13:00:00" />
+				<param name="closingTime" value="23:00:00" />
+			</parameterset>
+		<parameterset type="activityParams" >
+                <param name="activityType" value="education" />
+                <param name="minimalDuration" value="03:00:00" />
+                <param name="typicalDuration" value="06:00:00" />
+                <param name="openingTime" value="05:00:00" />
+                <param name="latestStartTime" value="15:30:00" />
+                <param name="closingTime" value="23:30:00" />
+        </parameterset>
+        <parameterset type="activityParams" >
+                <param name="activityType" value="leisure" />
+                <param name="minimalDuration" value="00:15:00" />
+                <param name="typicalDuration" value="00:45:00" />
+        </parameterset>
+        <parameterset type="activityParams" >
+                <param name="activityType" value="shopping" />
+                <param name="minimalDuration" value="00:25:00" />
+                <param name="typicalDuration" value="00:45:00" />
+        </parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="other" />
+				<param name="minimalDuration" value="00:25:00" />
+				<param name="typicalDuration" value="00:45:00" />
+			</parameterset>
+		<parameterset type="modeParams">
+				<param name="mode" value="car"/>
+<!--				<param name="constant" value="0.0"  />-->
+				<param name="constant" value="-0.5"  />
+<!--				<param name="marginalUtilityOfDistance_util_m" value="-30.3" />-->
+<!--				<param name="marginalUtilityOfDistance_util_m" value="-30.3" />-->
+<!--				<param name="marginalUtilityOfTraveling_util_hr" value="-20.5" />-->
+				<param name="marginalUtilityOfTraveling_util_hr" value="0.0" />
+<!--				<param name="monetaryDistanceRate" value="-50.0" />-->
+				<param name="monetaryDistanceRate" value="-0.0002" />
+		</parameterset>
+<!--		<parameterset type="modeParams">-->
+<!--				<param name="mode" value="pt"/>-->
+<!--				<param name="constant" value="0.0"  />-->
+<!--				<param name="marginalUtilityOfDistance_util_m" value="-70.0" />-->
+<!--				<param name="marginalUtilityOfTraveling_util_hr" value="-150.0" />-->
+<!--				<param name="monetaryDistanceRate" value="-20.5" />-->
+<!--		</parameterset>-->
+			<parameterset type="modeParams" >
+				<param name="constant" value="-0.3" />
+				<param name="marginalUtilityOfTraveling_util_hr" value="0.0" />
+				<param name="mode" value="pt" />
+				<param name="dailyMonetaryConstant" value="-2.1" />
+			</parameterset>
+<!--		<parameterset type="modeParams">-->
+<!--				<param name="mode" value="walk"/>-->
+<!--				<param name="constant" value="0.0"  />-->
+<!--				<param name="marginalUtilityOfDistance_util_m" value="-600.0" />-->
+<!--				<param name="marginalUtilityOfTraveling_util_hr" value="-600.0" />-->
+<!--				<param name="monetaryDistanceRate" value="-10.5" />-->
+<!--		</parameterset>-->
+			<parameterset type="modeParams" >
+				<param name="marginalUtilityOfTraveling_util_hr" value="0.0" />
+				<param name="mode" value="walk" />
+			</parameterset>
+<!--		<parameterset type="modeParams" >-->
+<!--				<param name="mode" value="bicycle" />-->
+<!--				<param name="constant" value="0.0" />-->
+<!--				<param name="marginalUtilityOfDistance_util_m" value="0.0" />-->
+<!--				<param name="marginalUtilityOfTraveling_util_hr" value="0.0" />-->
+<!--				<param name="monetaryDistanceRate" value="-10.5" />-->
+<!--		</parameterset>-->
+			<parameterset type="modeParams" >
+				<param name="constant" value="-0.9" />
+				<param name="marginalUtilityOfTraveling_util_hr" value="0.0" />
+				<param name="mode" value="bicycle" />
+			</parameterset>
+		</parameterset>
+	</module>
+
+	<module name="strategy">
+		<param name="maxAgentPlanMemorySize" value="5" />
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ChangeExpBeta"/>
+			<param name="weight" value="0.8"/>
+		</parameterset>
+
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="TimeAllocationMutator_ReRoute"/>
+			<param name="weight" value="0.1"/>
+		</parameterset>
+
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="SubtourModeChoice"/>
+			<param name="weight" value="0.1"/>
+		</parameterset>
+		<param name="ModuleProbability_1" value="0.9" />
+		<param name="Module_1" value="BestScore" />
+
+<!--		<parameterset type="strategysettings">-->
+<!--			<param name="strategyName" value="ReRoute"/>-->
+<!--			<param name="subpopulation" value="person"/>-->
+<!--			<param name="weight" value="0.10"/>-->
+<!--		</parameterset>-->
+
+		<param name="ModuleProbability_2" value="0.1" />
+		<param name="Module_2" value="ReRoute" />
+	</module>
+
+
+
+	<module name="subtourModeChoice" >
+		<param name="modes" value="car,bicycle,pt,walk" />
+		<param name="considerCarAvailability" value="true"/>
+		<param name="chainBasedModes" value="car,pt,bicycle" />
+	</module>
+
+	<module name="planscalcroute" >
+		<!-- Defines how access and egress to main mode is simulated. Either of [none, accessEgressModeToLink, walkConstantTimeToLink, accessEgressModeToLinkPlusTimeConstant], Current default=none which means no access or egress trips are simulated. -->
+		<param name="accessEgressType" value="accessEgressModeToLink" />
+		<param name="networkModes" value="car,bicycle" />
+		<param name="clearDefaultTeleportedModeParams" value="true" />
+		<param name="routingRandomness" value="3.0" />
+		<parameterset type="teleportedModeParameters" >
+			<param name="beelineDistanceFactor" value="1.6" />
+			<param name="mode" value="walk" />
+			<param name="teleportedModeFreespeedFactor" value="null" />
+			<param name="teleportedModeSpeed" value="1.4" />
+		</parameterset>
+	</module>
+
+	<module name="travelTimeCalculator" >
+		<param name="analyzedModes" value="car,bicycle,pt,walk" />
+		<param name="separateModes" value="true" />
+	</module>
+</config>
