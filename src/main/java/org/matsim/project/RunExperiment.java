@@ -20,7 +20,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
-
+@SuppressWarnings("unchecked")
 public class RunExperiment {
     public static void createNetworkChangeEventClose(int start_time, ArrayList<String> links, Scenario sc) {
 
