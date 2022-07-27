@@ -68,7 +68,7 @@ public class RunExperiment {
     public static void runSimulation() {
 
         //read links nto hash map
-        String path_to_links = Paths.get("..","..","..","scenarios","bilbao","input","links.json").toString();
+        String path_to_links = Paths.get("/home/miljana/matsim-example-project/","scenarios","bilbao","input","links.json").toString();
         HashMap<String, ArrayList<String>> link = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
