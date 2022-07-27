@@ -112,6 +112,7 @@ public class RunExperiment {
             duration.add(i);
         }
 
+        System.out.println("city parts size: "+city_parts.size());
 //       //iterate over city parts
         for (String id:city_parts){
 
