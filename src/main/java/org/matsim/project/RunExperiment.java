@@ -68,21 +68,18 @@ public class RunExperiment {
     public static void runSimulation() {
 
         //read links nto hash map
-        String path_to_links = Paths.get("/home/miljana/matsim-example-project/","scenarios","bilbao","input","links.json").toString();
+        String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
         HashMap<String, ArrayList<String>> link = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
             Object obj = parser.parse(new FileReader(path_to_links));
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray data = (JSONArray) jsonObject.get("data");
-            Iterator iterator = data.iterator();
-//            Iterator<JSONObject> iterator =  data.iterator();
+//            Iterator iterator = data.iterator();
+            Iterator<JSONObject> iterator =  data.iterator();
             while (iterator.hasNext()) {
-                JSONObject o = (JSONObject) iterator.next();
-                Object object = o.get("links");
-                ArrayList<String> objects1 = new ArrayList<String>();
-                objects1.add((String) object);
-                link.put(String.valueOf( o.get("region")), objects1);
+                JSONObject o = iterator.next();
+                link.put(String.valueOf( o.get("region")), (ArrayList) o.get("links"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,6 +94,7 @@ public class RunExperiment {
            char[] regions;
            regions = id.toCharArray();
            for (int i =0;i<regions.length;i++){
+               System.out.println(regions[i]);
                l.addAll(link.get(String.valueOf(regions[i])));
            }
            city_parts_comb.put(id,l);
