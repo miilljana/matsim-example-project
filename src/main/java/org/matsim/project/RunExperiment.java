@@ -124,7 +124,7 @@ public class RunExperiment {
 
                     System.out.println("in duration");
                     int start_time= h*60*60;
-                    if (start_time+d*60*60>=17*60*60)
+                    if (start_time+d*60*60>=20*60*60)
                         break;
 
                     Config config = ConfigUtils.loadConfig(Paths.get("../../../","scenarios","bilbao","input","config.xml").toString());
