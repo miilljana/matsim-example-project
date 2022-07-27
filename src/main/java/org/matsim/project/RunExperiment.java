@@ -115,12 +115,14 @@ public class RunExperiment {
         System.out.println("city parts size: "+city_parts.size());
 //       //iterate over city parts
         for (String id:city_parts){
-
+            System.out.println("in id");
             //iterate over start hours
             for (int h:hours){
                 // iterate over duration
+                System.out.println("in hours");
                 for (int d:duration){
 
+                    System.out.println("in duration");
                     int start_time= h*60*60;
                     if (start_time+d*60*60>=17*60*60)
                         break;
