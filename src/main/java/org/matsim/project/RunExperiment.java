@@ -68,7 +68,7 @@ public class RunExperiment {
     public static void runSimulation() {
 
         //read links nto hash map
-        String path_to_links = Paths.get("scenarios","bilbao","input","links.json").toString();
+        String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
         HashMap<String, ArrayList<String>> link = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
@@ -124,7 +124,7 @@ public class RunExperiment {
                     if (start_time+d*60*60>=17*60*60)
                         break;
 
-                    Config config = ConfigUtils.loadConfig(Paths.get("scenarios","bilbao","input","config.xml").toString());
+                    Config config = ConfigUtils.loadConfig(Paths.get("../../../","scenarios","bilbao","input","config.xml").toString());
                     config.network().setTimeVariantNetwork(true);
                     Scenario sc = ScenarioUtils.loadScenario(config);
 
@@ -143,7 +143,7 @@ public class RunExperiment {
 
 //                    controler.getConfig().qsim().setStuckTime(4 * 60 * 60);
 
-                    controler.getConfig().controler().setOutputDirectory(Paths.get("scenarios","bilbao","output","output_"+id+"_"+h+"_"+d).toString());
+                    controler.getConfig().controler().setOutputDirectory(Paths.get("../../../","scenarios","bilbao","output","output_"+id+"_"+h+"_"+d).toString());
                     controler.run();
 
                 }
@@ -154,27 +154,27 @@ public class RunExperiment {
 
     public static void main(String[] args) throws IOException {
 
-//        runSimulation();
-        //read links nto hash map
-        String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
-        HashMap<String, ArrayList<String>> link = new HashMap<>();
-        JSONParser parser = new JSONParser();
-        try {
-            Object obj = parser.parse(new FileReader(path_to_links));
-            JSONObject jsonObject = (JSONObject) obj;
-            ArrayList<JSONObject> da = (ArrayList<JSONObject>) jsonObject.get("data");
-            System.out.println(da);
-
-            JSONArray data = (JSONArray) jsonObject.get("data");
-            System.out.println(data);
-            Iterator<JSONObject> iterator = data.iterator();
-            while (iterator.hasNext()) {
-                JSONObject o = iterator.next();
-                link.put(String.valueOf( o.get("region")), (ArrayList<String>) o.get("links"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        runSimulation();
+//        //read links nto hash map
+//        String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
+//        HashMap<String, ArrayList<String>> link = new HashMap<>();
+//        JSONParser parser = new JSONParser();
+//        try {
+//            Object obj = parser.parse(new FileReader(path_to_links));
+//            JSONObject jsonObject = (JSONObject) obj;
+//            ArrayList<JSONObject> da = (ArrayList<JSONObject>) jsonObject.get("data");
+//            System.out.println(da);
+//
+//            JSONArray data = (JSONArray) jsonObject.get("data");
+//            System.out.println(data);
+//            Iterator<JSONObject> iterator = data.iterator();
+//            while (iterator.hasNext()) {
+//                JSONObject o = iterator.next();
+//                link.put(String.valueOf( o.get("region")), (ArrayList<String>) o.get("links"));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
     }
