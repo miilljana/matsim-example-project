@@ -79,7 +79,7 @@ public class RunExperiment {
             Iterator<JSONObject> iterator =  data.iterator();
             while (iterator.hasNext()) {
                 JSONObject o = iterator.next();
-                link.put(String.valueOf( o.get("region")), (ArrayList) o.get("links"));
+                link.put(String.valueOf( o.get("region")), (ArrayList<String>) o.get("links"));
             }
         } catch (Exception e) {
             e.printStackTrace();
