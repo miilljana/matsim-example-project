@@ -165,13 +165,13 @@ public class RunExperiment {
             ArrayList<JSONObject> da = (ArrayList<JSONObject>) jsonObject.get("data");
             System.out.println(da);
 
-//            JSONArray data = (JSONArray) jsonObject.get("data");
-//            System.out.println(data);
-//            Iterator<JSONObject> iterator = data.iterator();
-//            while (iterator.hasNext()) {
-//                JSONObject o = iterator.next();
-//                link.put(String.valueOf( o.get("region")), (ArrayList<String>) o.get("links"));
-//            }
+            JSONArray data = (JSONArray) jsonObject.get("data");
+            System.out.println(data);
+            Iterator<JSONObject> iterator = data.iterator();
+            while (iterator.hasNext()) {
+                JSONObject o = iterator.next();
+                link.put(String.valueOf( o.get("region")), (ArrayList<String>) o.get("links"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
