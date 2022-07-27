@@ -156,8 +156,6 @@ public class RunExperiment {
 
     public static void main(String[] args) throws IOException {
 
-
-
         runSimulation();
 
     }

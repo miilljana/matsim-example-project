@@ -11,27 +11,27 @@ import org.matsim.core.utils.io.IOUtils;
 import java.net.URL;
 
 class RunMatsimFromExamplesUtils{
-
-	public static void main( String[] args ){
-
-		URL context = org.matsim.examples.ExamplesUtils.getTestScenarioURL( "equil" );
-		URL url = IOUtils.extendUrl( context, "config.xml" );
-
-		Config config = ConfigUtils.loadConfig( url );
-		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
-
-		// ---
-
-		Scenario scenario = ScenarioUtils.loadScenario( config );
-
-		// ---
-
-		Controler controler = new Controler( scenario );
-
-		// ---
-
-		controler.run();
-
-	}
+//
+//	public static void main( String[] args ){
+//
+//		URL context = org.matsim.examples.ExamplesUtils.getTestScenarioURL( "equil" );
+//		URL url = IOUtils.extendUrl( context, "config.xml" );
+//
+//		Config config = ConfigUtils.loadConfig( url );
+//		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
+//
+//		// ---
+//
+//		Scenario scenario = ScenarioUtils.loadScenario( config );
+//
+//		// ---
+//
+//		Controler controler = new Controler( scenario );
+//
+//		// ---
+//
+//		controler.run();
+//
+//	}
 
 }

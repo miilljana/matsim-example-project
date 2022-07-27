@@ -53,37 +53,37 @@ import java.util.Set;
  */
 public class RunMatsim{
 
-	public static void main(String[] args) {
-
-		Config config;
-		if ( args==null || args.length==0 || args[0]==null ){
-			config = ConfigUtils.loadConfig( "scenarios/equil/config.xml" );
-		} else {
-			config = ConfigUtils.loadConfig( args );
-		}
-
-		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
-
-		// possibly modify config here
-
-		// ---
-		
-		Scenario scenario = ScenarioUtils.loadScenario(config) ;
-
-		// possibly modify scenario here
-		
-		// ---
-		
-		Controler controler = new Controler( scenario ) ;
-		
-		// possibly modify controler here
-
-//		controler.addOverridingModule( new OTFVisLiveModule() ) ;
-
-		
-		// ---
-		
-		controler.run();
-	}
+//	public static void main(String[] args) {
+//
+//		Config config;
+//		if ( args==null || args.length==0 || args[0]==null ){
+//			config = ConfigUtils.loadConfig( "scenarios/equil/config.xml" );
+//		} else {
+//			config = ConfigUtils.loadConfig( args );
+//		}
+//
+//		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
+//
+//		// possibly modify config here
+//
+//		// ---
+//
+//		Scenario scenario = ScenarioUtils.loadScenario(config) ;
+//
+//		// possibly modify scenario here
+//
+//		// ---
+//
+//		Controler controler = new Controler( scenario ) ;
+//
+//		// possibly modify controler here
+//
+////		controler.addOverridingModule( new OTFVisLiveModule() ) ;
+//
+//
+//		// ---
+//
+//		controler.run();
+//	}
 	
 }

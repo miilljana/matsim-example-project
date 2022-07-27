@@ -36,9 +36,9 @@ public class RunMatsimApplication extends MATSimApplication {
 		super("scenarios/equil/config.xml");
 	}
 
-	public static void main(String[] args) {
-		MATSimApplication.run(RunMatsimApplication.class, args);
-	}
+//	public static void main(String[] args) {
+//		MATSimApplication.run(RunMatsimApplication.class, args);
+//	}
 
 	@Override
 	protected Config prepareConfig(Config config) {
