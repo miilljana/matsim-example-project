@@ -22,6 +22,8 @@ import java.nio.file.Paths;
 import java.util.*;
 @SuppressWarnings("unchecked")
 public class RunExperiment {
+
+
     public static void createNetworkChangeEventClose(int start_time, ArrayList<String> links, Scenario sc) {
 
         //start of closure
@@ -66,7 +68,6 @@ public class RunExperiment {
 
 
     public static void runSimulation() {
-
         //read links nto hash map
         String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
         HashMap<String, ArrayList<String>> link = new HashMap<>();
@@ -103,7 +104,7 @@ public class RunExperiment {
 
        //define start hours    from 7am to 10pm  discretized into 30 min intervals
         ArrayList<Integer> hours = new ArrayList<>();
-        for (int i = 11;i<=15;i++){
+        for (int i = 18;i<=19;i++){
             hours.add(i);
         }
         //define duration of closure from 30 min to 10pm, discretized into 30 min intervals (1 meand 30 min...)
