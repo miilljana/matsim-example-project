@@ -154,7 +154,7 @@ public class RunExperiment {
     public static void main(String[] args) throws IOException {
         Path pathtest = Paths.get("../../../","scenarios","bilbao","output_1_17_2");
         System.out.println(Files.isDirectory(pathtest));
-        runSimulation();
+//        runSimulation();
 //        //read links nto hash map
 //        String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
 //        HashMap<String, ArrayList<String>> link = new HashMap<>();
