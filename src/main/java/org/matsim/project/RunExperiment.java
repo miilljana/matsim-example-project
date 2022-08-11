@@ -122,27 +122,28 @@ public class RunExperiment {
             if (!isDir){
                 //do the simulation
 
-                    Config config = ConfigUtils.loadConfig(Paths.get("../../../","scenarios","bilbao","input","config.xml").toString());
-                    config.network().setTimeVariantNetwork(true);
-                    Scenario sc = ScenarioUtils.loadScenario(config);
-
-
-                    createNetworkChangeEventClose(h*60*60, city_parts_comb.get(id), sc);
-                    createnetworkChangeEventOpen(h*60*60+d*60*60, city_parts_comb.get(id), sc);
-
-                    Controler controler = new Controler(sc);
-                    controler.getConfig().controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
-                    controler.getConfig().controler().setWriteEventsInterval(50);
-                    controler.getConfig().controler().setLastIteration(200);
-
-                    controler.getConfig().qsim().setStorageCapFactor(0.3);
-                    controler.getConfig().qsim().setFlowCapFactor(0.1);
-                    controler.getConfig().plans().setActivityDurationInterpretation(PlansConfigGroup.ActivityDurationInterpretation.minOfDurationAndEndTime);
-
-//                    controler.getConfig().qsim().setStuckTime(4 * 60 * 60);
-
-                    controler.getConfig().controler().setOutputDirectory(Paths.get("../../../","scenarios","bilbao","output","output_"+id+"_"+h+"_"+d).toString());
-                    controler.run();
+                System.out.println("doesnt exixts");
+//                    Config config = ConfigUtils.loadConfig(Paths.get("../../../","scenarios","bilbao","input","config.xml").toString());
+//                    config.network().setTimeVariantNetwork(true);
+//                    Scenario sc = ScenarioUtils.loadScenario(config);
+//
+//
+//                    createNetworkChangeEventClose(h*60*60, city_parts_comb.get(id), sc);
+//                    createnetworkChangeEventOpen(h*60*60+d*60*60, city_parts_comb.get(id), sc);
+//
+//                    Controler controler = new Controler(sc);
+//                    controler.getConfig().controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
+//                    controler.getConfig().controler().setWriteEventsInterval(50);
+//                    controler.getConfig().controler().setLastIteration(200);
+//
+//                    controler.getConfig().qsim().setStorageCapFactor(0.3);
+//                    controler.getConfig().qsim().setFlowCapFactor(0.1);
+//                    controler.getConfig().plans().setActivityDurationInterpretation(PlansConfigGroup.ActivityDurationInterpretation.minOfDurationAndEndTime);
+//
+////                    controler.getConfig().qsim().setStuckTime(4 * 60 * 60);
+//
+//                    controler.getConfig().controler().setOutputDirectory(Paths.get("../../../","scenarios","bilbao","output","output_"+id+"_"+h+"_"+d).toString());
+//                    controler.run();
 
                 }
             }
@@ -151,7 +152,8 @@ public class RunExperiment {
     }
 
     public static void main(String[] args) throws IOException {
-
+        Path pathtest = Paths.get("../../../","scenarios","bilbao","output_1_17_2");
+        System.out.println(Files.isDirectory(pathtest));
         runSimulation();
 //        //read links nto hash map
 //        String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
