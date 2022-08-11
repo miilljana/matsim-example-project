@@ -152,7 +152,7 @@ public class RunExperiment {
     }
 
     public static void main(String[] args) throws IOException {
-        Path pathtest = Paths.get("../../../","scenarios","bilbao","output_1_17_2");
+        Path pathtest = Paths.get("../../../","scenarios","bilbao","output","output_1_17_2");
         System.out.println(Files.isDirectory(pathtest));
 //        runSimulation();
 //        //read links nto hash map
