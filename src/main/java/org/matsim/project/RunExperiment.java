@@ -155,7 +155,7 @@ public class RunExperiment {
 
         }
 
-                    Config config = ConfigUtils.loadConfig(Paths.get("scenarios","bilbao","input","config.xml").toString());
+                    Config config = ConfigUtils.loadConfig(Paths.get("../../../","scenarios","bilbao","input","config.xml").toString());
                     config.network().setTimeVariantNetwork(true);
                     Scenario sc = ScenarioUtils.loadScenario(config);
 
