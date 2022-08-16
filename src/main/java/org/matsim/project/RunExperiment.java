@@ -147,7 +147,6 @@ public class RunExperiment {
         for(int k=0;k<cp.size();k++){
             if (p.contains(String.valueOf(cp.get(k)))){
                 System.out.println("duplicate");
-                cp.remove(k);
             }
             else{
                 p.add(String.valueOf(cp.get(k)));
@@ -160,9 +159,9 @@ public class RunExperiment {
                     Scenario sc = ScenarioUtils.loadScenario(config);
 
 
-                    createNetworkChangeEventClose(h*60*60, cp, sc);
+                    createNetworkChangeEventClose(h*60*60, p, sc);
 //                    createNetworkChangeEventClose(12*60*60, cp, sc);
-                    createnetworkChangeEventOpen(h*60*60+d*60*60, cp, sc);
+                    createnetworkChangeEventOpen(h*60*60+d*60*60, p, sc);
 //                    createnetworkChangeEventOpen(12*60*60+1*60*60, cp, sc);
 
                     Controler controler = new Controler(sc);
