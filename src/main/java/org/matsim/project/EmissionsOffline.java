@@ -27,16 +27,14 @@ public class EmissionsOffline {
 
     static Logger logger = LoggerFactory.getLogger(EmissionsOffline.class);
 
-    public static void calculateEmissions(String simulated_city, String simulation_id, Path results_path){
+    public static void calculateEmissions(Path input_path,Path input_emissions,Path results_path){
 
-        copyScheduleToInputEmmision(simulated_city, simulation_id);
 
-        Path input_emissions = Paths.get("data", simulated_city, "input_emissions");
         Path emissions_network_path = Paths.get(input_emissions.toString(), "network.xml");
-        Path emissions_vehicles_path = Paths.get(input_emissions.toString(), "vehicles.xml");
+        Path emissions_vehicles_path = Paths.get(results_path.toString(), "emission_vehicles.xml");
 
         //create config file for emissions
-        Config config = ConfigUtils.loadConfig(Paths.get(input_emissions.toString(), "config.xml").toString());
+        Config config = ConfigUtils.loadConfig(Paths.get(input_path.toString(), "config.xml").toString());
 
         config.network().setInputFile(emissions_network_path.toAbsolutePath().toString());
         config.vehicles().setVehiclesFile(emissions_vehicles_path.toAbsolutePath().toString());
@@ -50,15 +48,9 @@ public class EmissionsOffline {
         ecg.setDetailedVsAverageLookupBehavior(EmissionsConfigGroup.DetailedVsAverageLookupBehavior.directlyTryAverageTable);
         ecg.setNonScenarioVehicles(EmissionsConfigGroup.NonScenarioVehicles.ignore);
 
-//        AddRoadType.run(
-//                emissions_network_path.toString(),
-//                emissions_network_path.toString()
-//        );
-
-        CreateEmissionVehicles.run(results_path, Paths.get(results_path.toString(), "output_allVehicles.xml").toAbsolutePath().toString(), emissions_vehicles_path.toAbsolutePath().toString());
 
         ConfigWriter cw = new ConfigWriter(config);
-        cw.write(Paths.get(input_emissions.toString(),"config.xml").toString());
+        cw.write(Paths.get(input_path.toString(),"config.xml").toString());
 
         final Scenario scenario = ScenarioUtils.loadScenario(config);
 

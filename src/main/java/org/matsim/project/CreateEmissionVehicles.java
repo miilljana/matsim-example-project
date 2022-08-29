@@ -14,11 +14,12 @@ import java.util.Map;
 
 public class CreateEmissionVehicles {
 
-    public static void run(Path results_path, String all_vehicles, String output_emission_vehicles){
+    public static void run(Path input_vehicles, Path output_vehicles){
 
-        Config config = ConfigUtils.loadConfig(Paths.get(results_path.getParent().getParent().toString(),"config.xml").toString());
 
-        config.vehicles().setVehiclesFile(all_vehicles);
+        Config config = ConfigUtils.loadConfig(Paths.get("scenarios","bilbao","input","config.xml").toString());
+
+        config.vehicles().setVehiclesFile(input_vehicles.toString());
         Scenario scenario = ScenarioUtils.loadScenario(config);
 
         Vehicles vehiclesHbefa = VehicleUtils.createVehiclesContainer();
@@ -54,8 +55,17 @@ public class CreateEmissionVehicles {
             vehiclesHbefa.addVehicle(vehicle);
         }
 
-        new MatsimVehicleWriter(vehiclesHbefa).writeFile(output_emission_vehicles);
+        new MatsimVehicleWriter(vehiclesHbefa).writeFile(output_vehicles.toString());
 
 
+    }
+
+    public static void main(String[] args) {
+
+
+        Path input_vehicles = Paths.get("D:","Users","miljana","simulation","output_1_7_1","output_allVehicles.xml.gz");
+        Path output_vehicles = Paths.get("D:","Users","miljana","simulation","output_1_7_1","emission_vehicles.xml.gz");
+
+        run(input_vehicles,output_vehicles);
     }
 }
