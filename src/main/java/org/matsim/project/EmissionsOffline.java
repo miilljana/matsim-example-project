@@ -3,6 +3,7 @@ package org.matsim.project;
 import com.google.inject.Injector;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.emissions.EmissionModule;
+
 import org.matsim.contrib.emissions.utils.EmissionsConfigGroup;
 import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.config.Config;
@@ -13,19 +14,16 @@ import org.matsim.core.events.EventsUtils;
 import org.matsim.core.events.MatsimEventsReader;
 import org.matsim.core.events.algorithms.EventWriterXML;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Files;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+
 
 
 public class EmissionsOffline {
 
-    static Logger logger = LoggerFactory.getLogger(EmissionsOffline.class);
+
 
     public static void calculateEmissions(Path input_path,Path input_emissions,Path results_path){
 
@@ -50,7 +48,7 @@ public class EmissionsOffline {
 
 
         ConfigWriter cw = new ConfigWriter(config);
-        cw.write(Paths.get(input_path.toString(),"config.xml").toString());
+        cw.write(Paths.get(input_emissions.toString(),"config.xml").toString());
 
         final Scenario scenario = ScenarioUtils.loadScenario(config);
 
@@ -76,19 +74,16 @@ public class EmissionsOffline {
         matsimEventsReader	=	new	MatsimEventsReader(eventsManager);
         eventsManager.finishProcessing();
 
-        matsimEventsReader.readFile(Paths.get(results_path.toString(), "output_events.xml").toString());	//	existing	events	file	as	input
+        matsimEventsReader.readFile(Paths.get(results_path.toString(), "output_events.xml.gz").toString());	//	existing	events	file	as	input
         emissionEventWriter.closeFile();
 
     }
 
-    private static void copyScheduleToInputEmmision(String city, String sim_id) {
-        Path source = Paths.get("data", city, "simulations", sim_id, "schedule.xml");
-        Path target = Paths.get("data", city, "input_emissions", "schedule.xml");
-        try {
-            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            logger.error("Could not copy PT schedule to input_emissions.");
-            e.printStackTrace();
-        }
+    public static void main(String[] args) {
+        Path input_path = Paths.get("scenarios","bilbao","input");
+        Path input_emissions = Paths.get("scenarios","bilbao","input_emissions");
+        Path results_path = Paths.get("D:","Users","miljana","simulation","output_1_7_1");
+
+        calculateEmissions(input_path,input_emissions,results_path);
     }
 }
