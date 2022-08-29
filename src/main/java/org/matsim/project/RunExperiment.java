@@ -137,7 +137,7 @@ public class RunExperiment {
 
             boolean isDir = Files.isDirectory(path);
             if (!isDir){
-                System.out.println("Simulation does not exists. Will run now!");
+                System.out.println("Simulation does not exists. Will run now!"+"output_" + id + "_" + h + "_" + d);
 //                do the simulation
 
         //filter duplicates of city_parts_comb
