@@ -20,7 +20,7 @@ public class CreateEmissionVehicles {
     public static void run(Path input_vehicles, Path output_vehicles){
 
 
-        Config config = ConfigUtils.loadConfig(Paths.get("scenarios","bilbao","input","config.xml").toString());
+        Config config = ConfigUtils.loadConfig(Paths.get("../../..","scenarios","bilbao","input","config.xml").toString());
 
         config.vehicles().setVehiclesFile(input_vehicles.toString());
         Scenario scenario = ScenarioUtils.loadScenario(config);

@@ -31,6 +31,7 @@ public class EmissionsOffline {
         // AddRoadType is run once
         //CreateEmissionVehicles is run for every simulation
 
+        CreateEmissionVehicles.run(Paths.get(results_path.toString(),"output_allVehicles.xml.gz"),Paths.get(results_path.toString(),"emission_vehicles.xml.gz"));
 
 
         Path emissions_network_path = Paths.get(input_emissions.toString(), "network.xml");
