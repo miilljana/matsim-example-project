@@ -14,5 +14,6 @@ public class checkFileContent {
         File file1 = new File(path1.toString());
         File file2 = new File(path2.toString());
         boolean isTwoEqual = FileUtils.contentEquals(file1,file2);
+        System.out.println(isTwoEqual);
     }
 }
