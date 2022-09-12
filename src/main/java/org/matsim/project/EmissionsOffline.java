@@ -16,6 +16,7 @@ import org.matsim.core.events.algorithms.EventWriterXML;
 import org.matsim.core.scenario.ScenarioUtils;
 
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -26,63 +27,67 @@ public class EmissionsOffline {
 
 
 
-    public static void calculateEmissions(Path input_path,Path input_emissions,Path results_path){
+    public static void calculateEmissions(Path input_path,Path input_emissions,Path results_path) {
 
         // AddRoadType is run once
         //CreateEmissionVehicles is run for every simulation
-
-        CreateEmissionVehicles.run(Paths.get(results_path.toString(),"output_allVehicles.xml.gz"),Paths.get(results_path.toString(),"emission_vehicles.xml.gz"));
-
-
-        Path emissions_network_path = Paths.get(input_emissions.toString(), "network.xml");
-        Path emissions_vehicles_path = Paths.get(results_path.toString(), "emission_vehicles.xml.gz");
-
-        //create config file for emissions
-        Config config = ConfigUtils.loadConfig(Paths.get(input_path.toString(), "config.xml").toString());
-
-        config.network().setInputFile(emissions_network_path.toAbsolutePath().toString());
-        config.vehicles().setVehiclesFile(emissions_vehicles_path.toAbsolutePath().toString());
-
-        EmissionsConfigGroup ecg = new EmissionsConfigGroup();
-        config.addModule(ecg);
-        ecg.setAverageColdEmissionFactorsFile(Paths.get(input_emissions.toString(),"EFA_ColdStart_Vehcat_2020Average.txt").toAbsolutePath().toString());
-        ecg.setAverageWarmEmissionFactorsFile(Paths.get(input_emissions.toString(),"EFA_HOT_Vehcat_2020Average.txt").toAbsolutePath().toString());
-
-        ecg.setHbefaRoadTypeSource(EmissionsConfigGroup.HbefaRoadTypeSource.fromLinkAttributes);
-        ecg.setDetailedVsAverageLookupBehavior(EmissionsConfigGroup.DetailedVsAverageLookupBehavior.directlyTryAverageTable);
-        ecg.setNonScenarioVehicles(EmissionsConfigGroup.NonScenarioVehicles.ignore);
+        try {
+            CreateEmissionVehicles.run(Paths.get(results_path.toString(), "output_allVehicles.xml.gz"), Paths.get(results_path.toString(), "emission_vehicles.xml.gz"));
 
 
-        ConfigWriter cw = new ConfigWriter(config);
-        cw.write(Paths.get(input_emissions.toString(),"config.xml").toString());
+            Path emissions_network_path = Paths.get(input_emissions.toString(), "network.xml");
+            Path emissions_vehicles_path = Paths.get(results_path.toString(), "emission_vehicles.xml.gz");
 
-        final Scenario scenario = ScenarioUtils.loadScenario(config);
+            //create config file for emissions
+            Config config = ConfigUtils.loadConfig(Paths.get(input_path.toString(), "config.xml").toString());
 
-        final EventsManager eventsManager = EventsUtils.createEventsManager();
-        AbstractModule module	=	new	AbstractModule()	{
-            public void install() {
-                this.bind(Scenario.class).toInstance(scenario);
-                this.bind(EventsManager.class).toInstance(eventsManager);
-                this.bind(EmissionModule.class);
-            }
-        };
+            config.network().setInputFile(emissions_network_path.toAbsolutePath().toString());
+            config.vehicles().setVehiclesFile(emissions_vehicles_path.toAbsolutePath().toString());
 
-        Injector injector	=	org.matsim.core.controler.Injector.createInjector(config,	module);
-        EmissionModule	emissionModule	=	injector.getInstance(EmissionModule.class);
+            EmissionsConfigGroup ecg = new EmissionsConfigGroup();
+            config.addModule(ecg);
+            ecg.setAverageColdEmissionFactorsFile(Paths.get(input_emissions.toString(), "EFA_ColdStart_Vehcat_2020Average.txt").toAbsolutePath().toString());
+            ecg.setAverageWarmEmissionFactorsFile(Paths.get(input_emissions.toString(), "EFA_HOT_Vehcat_2020Average.txt").toAbsolutePath().toString());
 
-        EventWriterXML emissionEventWriter ;
-        MatsimEventsReader matsimEventsReader;
+            ecg.setHbefaRoadTypeSource(EmissionsConfigGroup.HbefaRoadTypeSource.fromLinkAttributes);
+            ecg.setDetailedVsAverageLookupBehavior(EmissionsConfigGroup.DetailedVsAverageLookupBehavior.directlyTryAverageTable);
+            ecg.setNonScenarioVehicles(EmissionsConfigGroup.NonScenarioVehicles.ignore);
 
 
-        emissionEventWriter	=	new	EventWriterXML(Paths.get(results_path.toString(), "emissionEvents.xml").toString());
-        emissionModule.getEmissionEventsManager().addHandler(emissionEventWriter);
-        eventsManager.initProcessing();
-        matsimEventsReader	=	new	MatsimEventsReader(eventsManager);
-        eventsManager.finishProcessing();
+            ConfigWriter cw = new ConfigWriter(config);
+            cw.write(Paths.get(input_emissions.toString(), "config.xml").toString());
 
-        matsimEventsReader.readFile(Paths.get(results_path.toString(), "output_events.xml.gz").toString());	//	existing	events	file	as	input
-        emissionEventWriter.closeFile();
+            final Scenario scenario = ScenarioUtils.loadScenario(config);
 
+            final EventsManager eventsManager = EventsUtils.createEventsManager();
+            AbstractModule module = new AbstractModule() {
+                public void install() {
+                    this.bind(Scenario.class).toInstance(scenario);
+                    this.bind(EventsManager.class).toInstance(eventsManager);
+                    this.bind(EmissionModule.class);
+                }
+            };
+
+            Injector injector = org.matsim.core.controler.Injector.createInjector(config, module);
+            EmissionModule emissionModule = injector.getInstance(EmissionModule.class);
+
+            EventWriterXML emissionEventWriter;
+            MatsimEventsReader matsimEventsReader;
+
+
+            emissionEventWriter = new EventWriterXML(Paths.get(results_path.toString(), "emissionEvents.xml").toString());
+            emissionModule.getEmissionEventsManager().addHandler(emissionEventWriter);
+            eventsManager.initProcessing();
+            matsimEventsReader = new MatsimEventsReader(eventsManager);
+            eventsManager.finishProcessing();
+
+            matsimEventsReader.readFile(Paths.get(results_path.toString(), "output_events.xml.gz").toString());    //	existing	events	file	as	input
+            emissionEventWriter.closeFile();
+
+        }
+        catch (Exception e){
+            System.out.println("file not found");
+        }
     }
 
     public static void main(String[] args) {
