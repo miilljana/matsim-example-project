@@ -71,7 +71,7 @@ public class RunExperiment {
 
     public static void runSimulation() {
         //read links nto hash map
-        String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
+        String path_to_links = Paths.get("scenarios","bilbao","input","links.json").toString();
         HashMap<String, ArrayList<String>> link = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
@@ -131,9 +131,9 @@ public class RunExperiment {
             Integer h = start_hour.get(a[i][1] - 1);
             Integer d = duration.get(a[i][2] - 1);
 
-//            Path path = Paths.get("D:", "Users", "miljana", "experiment3", "output_" + id + "_" + h + "_" + d);
+            Path path = Paths.get("D:", "Users", "miljana", "experiment3", "output_" + id + "_" + h + "_" + d);
 
-            Path path = Paths.get("../../../", "scenarios", "bilbao", "output", "output_" + id + "_" + h + "_" + d);
+//            Path path = Paths.get("../../../", "scenarios", "bilbao", "output", "output_" + id + "_" + h + "_" + d);
 
             boolean isDir = Files.isDirectory(path);
             if (!isDir){
@@ -154,7 +154,7 @@ public class RunExperiment {
 
         }
 
-                    Config config = ConfigUtils.loadConfig(Paths.get("../../../","scenarios","bilbao","input","config.xml").toString());
+                    Config config = ConfigUtils.loadConfig(Paths.get("scenarios","bilbao","input","config.xml").toString());
                     config.network().setTimeVariantNetwork(true);
                     Scenario sc = ScenarioUtils.loadScenario(config);
 
@@ -175,7 +175,7 @@ public class RunExperiment {
 
 //                    controler.getConfig().qsim().setStuckTime(4 * 60 * 60);
 
-                    controler.getConfig().controler().setOutputDirectory(Paths.get("../../../","scenarios","bilbao","output","output_"+id+"_"+h+"_"+d).toString());
+                    controler.getConfig().controler().setOutputDirectory(Paths.get("scenarios","bilbao","output","output_"+id+"_"+h+"_"+d).toString());
 //                    controler.getConfig().controler().setOutputDirectory(Paths.get("scenarios","bilbao","output","output_test").toString());
                     controler.run();
 
