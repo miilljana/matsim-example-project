@@ -15,7 +15,7 @@ import java.util.Iterator;
 public class GetLinks {
     public static HashMap<String, ArrayList<String>> getLinks (){
         //read links nto hash map
-        String path_to_links = Paths.get("scenarios","bilbao","input","links.json").toString();
+        String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
         HashMap<String, ArrayList<String>> link = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
@@ -66,7 +66,7 @@ public class GetLinks {
     }
 
     public static ArrayList<String> getSurroundingLinks(){
-        String path_to_links = Paths.get("scenarios","bilbao","input","links.json").toString();
+        String path_to_links = Paths.get("../../../","scenarios","bilbao","input","links.json").toString();
         HashMap<String, ArrayList<String>> link = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
