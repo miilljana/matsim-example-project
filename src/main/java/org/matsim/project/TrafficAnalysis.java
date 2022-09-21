@@ -119,7 +119,7 @@ public class TrafficAnalysis {
         fw.write(",level1,,,level2,,,level3,\n");
         fw.write("sim_id,tt_min,tt_avg,tt_max,tt_min,tt_avg,tt_max,tt_min,tt_avg,tt_max\n");
 
-        for (int i = 50; i < 120; i++) {
+        for (int i = 120; i < 192; i++) {
             ArrayList<Double> results = new ArrayList<>();
             String id = city_parts.get(a[i][0] - 1);
             Integer h = start_hour.get(a[i][1] - 1);
