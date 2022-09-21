@@ -71,10 +71,10 @@ public class EventsReader {
 //        Path path = Paths.get("D:", "Users", "miljana","results","emissions.csv");
         Path path = Paths.get("../../../", "scenarios", "bilbao", "results","emission.csv");
         //create cvs file
-        String header = new String(",level1,,,level2,,,,level3,\n");
+        String header = new String(",,level1,,,level2,,,,level3,\n");
         FileWriter fw = new FileWriter(path.toString());
         fw.write(header);
-        fw.write("co2,nox,pm,co2,nox,pm,co2,nox,pm\n");
+        fw.write("sim_id,co2,nox,pm,co2,nox,pm,co2,nox,pm\n");
 
         ArrayList<String> city_parts = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "12", "13", "14", "15", "123", "134", "145", "125", "126", "139", "148", "157", "1236", "1239", "1349", "1348", "1458", "1457", "1257", "1256", "12369", "13498", "14578", "12567"));
         ArrayList<Integer> start_hour = new ArrayList<>(Arrays.asList(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17));
@@ -89,11 +89,15 @@ public class EventsReader {
             Integer d = duration.get(a[i][2] - 1);
             Path results = Paths.get("../../../", "scenarios", "bilbao", "output", "output_"+id+"_"+h+"_"+d,"emissionEvents.xml");
             EventsManager events = new EventsManagerImpl();
-            ArrayList<Double> emissions = readEmissions(events,results,linksMoyua,linksSurrounding);
+            try {
+                ArrayList<Double> emissions = readEmissions(events, results, linksMoyua, linksSurrounding);
 
-            fw.write(emissions.get(0)+","+emissions.get(1)+","+emissions.get(2)+emissions.get(3)+","+emissions.get(4)+","+emissions.get(5)+","+emissions.get(6)+","+emissions.get(7)+","+emissions.get(8)+"\n");
-            System.out.println("reading simulation num: "+i+" done!");
-
+                fw.write("sim_" + id + "_" + h + "_" + d + "," + emissions.get(0) + "," + emissions.get(1) + "," + emissions.get(2) + emissions.get(3) + "," + emissions.get(4) + "," + emissions.get(5) + "," + emissions.get(6) + "," + emissions.get(7) + "," + emissions.get(8) + "\n");
+                System.out.println("reading simulation num: " + i + " done!");
+            }
+            catch (Exception e){
+                System.out.println("Simulation doesn't exists "+"output_"+id+"_"+h+"_"+d);
+            }
         }
        fw.close();
 
