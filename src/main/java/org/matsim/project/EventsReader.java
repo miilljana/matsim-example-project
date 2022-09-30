@@ -34,13 +34,13 @@ public class EventsReader {
                     if (!link.matches("(.*)pt(.*)")) {
                         try {
                             if (linksMoyua.contains(Long.valueOf(link))) {
-                                System.out.println("Contains Moyua");
+//                                System.out.println("Contains Moyua");
                                 co2[0] += Double.parseDouble(event.getAttributes().get("CO2_TOTAL"));
                                 nox[0] += Double.parseDouble(event.getAttributes().get("NOx"));
                                 pm[0] += Double.parseDouble(event.getAttributes().get("PM"));
                             }
                             if (linksSurrounding.contains(Long.valueOf(link))) {
-                                System.out.println("Contains surrounding");
+//                                System.out.println("Contains surrounding");
                                 co2[1] += Double.parseDouble(event.getAttributes().get("CO2_TOTAL"));
                                 nox[1] += Double.parseDouble(event.getAttributes().get("NOx"));
                                 pm[2] += Double.parseDouble(event.getAttributes().get("PM"));
