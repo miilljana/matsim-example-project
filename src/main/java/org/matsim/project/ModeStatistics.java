@@ -53,7 +53,7 @@ public class ModeStatistics {
 
         fw.write("sim_name,bicycle,car,pt,walk\n");
 
-        for (int i = 50; i < 120; i++) {
+        for (int i = 120; i < 192; i++) {
             ArrayList<String> results = new ArrayList<>();
             String id = city_parts.get(a[i][0] - 1);
             Integer h = start_hour.get(a[i][1] - 1);
