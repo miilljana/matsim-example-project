@@ -43,7 +43,7 @@ public class EventsReader {
 //                                System.out.println("Contains surrounding");
                                 co2[1] += Double.parseDouble(event.getAttributes().get("CO2_TOTAL"));
                                 nox[1] += Double.parseDouble(event.getAttributes().get("NOx"));
-                                pm[2] += Double.parseDouble(event.getAttributes().get("PM"));
+                                pm[1] += Double.parseDouble(event.getAttributes().get("PM"));
                             }
                         }
                         catch (Exception e){
