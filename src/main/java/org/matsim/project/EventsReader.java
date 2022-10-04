@@ -81,7 +81,7 @@ public class EventsReader {
 //        Path path = Paths.get("D:", "Users", "miljana","results","emissions.csv");
         Path path = Paths.get("../../../", "scenarios", "bilbao", "results","emission.csv");
         //create cvs file
-        String header = new String(",,level1,,,level2,,,,level3,\n");
+        String header = new String(",,level1,,,level2,,,level3,\n");
         FileWriter fw = new FileWriter(path.toString());
         fw.write(header);
         fw.write("sim_id,co2,nox,pm,co2,nox,pm,co2,nox,pm\n");
