@@ -103,7 +103,7 @@ public class EventsReader {
             try {
                 ArrayList<Double> emissions = readEmissions(events, results, linksMoyua, linksSurrounding);
 
-                fw.write("sim_" + id + "_" + h + "_" + d + "," + emissions.get(0) + "," + emissions.get(1) + "," + emissions.get(2) + emissions.get(3) + "," + emissions.get(4) + "," + emissions.get(5) + "," + emissions.get(6) + "," + emissions.get(7) + "," + emissions.get(8) + "\n");
+                fw.write("sim_" + id + "_" + h + "_" + d + "," + emissions.get(0) + "," + emissions.get(1) + "," + emissions.get(2) + ","+emissions.get(3) + "," + emissions.get(4) + "," + emissions.get(5) + "," + emissions.get(6) + "," + emissions.get(7) + "," + emissions.get(8) + "\n");
                 System.out.println("reading simulation num: " + i + " done!");
             }
             catch (Exception e){
