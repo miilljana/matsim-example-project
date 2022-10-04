@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 
 public class RunBaseScenario {
     public static void main(String[] args) {
-        Config config = ConfigUtils.loadConfig(Paths.get("scenarios","bilbao","input","config.xml").toString());
+        Config config = ConfigUtils.loadConfig(Paths.get("../../../","scenarios","bilbao","input","config.xml").toString());
         config.network().setTimeVariantNetwork(true);
         Scenario sc = ScenarioUtils.loadScenario(config);
 
