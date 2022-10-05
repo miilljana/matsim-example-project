@@ -79,7 +79,7 @@ public class EventsReader {
     public static void main(String[] args) throws IOException {
 
 //        Path path = Paths.get("D:", "Users", "miljana","results","emissions.csv");
-        Path path = Paths.get("../../../", "scenarios", "bilbao", "results","emission.csv");
+        Path path = Paths.get("../../../", "scenarios", "bilbao", "results","emission_base.csv");
         //create cvs file
         String header = new String(",,level1,,,level2,,,level3,\n");
         FileWriter fw = new FileWriter(path.toString());
