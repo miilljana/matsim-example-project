@@ -39,7 +39,7 @@ public class ModeStatistics {
 
     public static void main(String[] args) throws IOException {
 //        Path resuls = Paths.get("D:", "Users", "miljana", "results","modestats.csv");
-        Path result = Paths.get("../../../", "scenarios", "bilbao", "results", "modestats.csv");
+        Path result = Paths.get("../../../", "scenarios", "bilbao", "results", "modestats_base.csv");
 
 
         ArrayList<String> city_parts = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "12", "13", "14", "15", "123", "134", "145", "125", "126", "139", "148", "157", "1236", "1239", "1349", "1348", "1458", "1457", "1257", "1256", "12369", "13498", "14578", "12567"));
@@ -53,25 +53,34 @@ public class ModeStatistics {
 
         fw.write("sim_name,bicycle,car,pt,walk\n");
 
-        for (int i = 120; i < 192; i++) {
-            ArrayList<String> results = new ArrayList<>();
-            String id = city_parts.get(a[i][0] - 1);
-            Integer h = start_hour.get(a[i][1] - 1);
-            Integer d = duration.get(a[i][2] - 1);
-            Path path = Paths.get("../../../", "scenarios", "bilbao", "output", "output_" + id + "_" + h + "_" + d, "modestats.txt");
+//        for (int i = 120; i < 192; i++) {
+//            ArrayList<String> results = new ArrayList<>();
+//            String id = city_parts.get(a[i][0] - 1);
+//            Integer h = start_hour.get(a[i][1] - 1);
+//            Integer d = duration.get(a[i][2] - 1);
+//            Path path = Paths.get("../../../", "scenarios", "bilbao", "output", "output_" + id + "_" + h + "_" + d, "modestats.txt");
+//
+//
+//            try {
+//              results = getStats(path.toString());
+//                fw.write("sim_" + id + "_" + h + "_" + d + "," + results.get(0) + "," + results.get(1) + "," + results.get(2) + "," + results.get(3) + "\n");
+//            }
+//            catch(Exception e){
+//                System.out.println("Simulation doesn't exists "+"output_" + id + "_" + h + "_" + d);
+//            }
+//
+//        }
 
+            Path path = Paths.get("../../../", "scenarios", "bilbao", "output", "output_base", "modestats.txt");
 
+        ArrayList<String> results = new ArrayList<>();
             try {
               results = getStats(path.toString());
-                fw.write("sim_" + id + "_" + h + "_" + d + "," + results.get(0) + "," + results.get(1) + "," + results.get(2) + "," + results.get(3) + "\n");
+                fw.write("sim_base"+ "," + results.get(0) + "," + results.get(1) + "," + results.get(2) + "," + results.get(3) + "\n");
             }
             catch(Exception e){
-                System.out.println("Simulation doesn't exists "+"output_" + id + "_" + h + "_" + d);
+                System.out.println("Simulation doesn't exists "+"output_base");
             }
-
-        }
-
-
         fw.close();
     }
 }
